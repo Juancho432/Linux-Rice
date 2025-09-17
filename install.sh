@@ -22,6 +22,8 @@ mkdir -p ~/.config/kitty
 cp kitty.conf ~/.config/kitty/
 
 ### ZSH
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 cp .zshrc ~
 cp .zsh_plugins.txt ~
+chsh -s "$(which zsh)" $(whoami)
+
