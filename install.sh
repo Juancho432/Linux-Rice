@@ -11,8 +11,11 @@ YELLOW='\033[0;33m'
 BLUE='\033[0;34m'
 PURPLE='\033[0;35m'
 CYAN='\033[0;36m'
-VERBOSE=false
 
+VERBOSE=false
+INSTALL_SHELL=false
+INSTALL_AWESOME=false
+UPDATE_REPOS=false
 
 # Verbosing
 function Run() {
@@ -28,7 +31,6 @@ function Run() {
 	fi
 }
 
-# Shell Install
 function ShellInstall() {
 	Run sudo pacman -S kitty 7zip neovim zsh fzf pkgfile bat
 	Run paru -S zsh-antidote
@@ -45,10 +47,20 @@ function ShellInstall() {
 	Run chsh -s "$(which zsh)" "$(whoami)"
 }
 
-# Awesome Install
 function AwesomeInstall() {
 	Run sudo pacman -S awesome xorg xorg-xinit xorg-server
 	Run echo "exec awesome" >>~/.xinitrc
+}
+
+function FontsInstall() {
+	mkdir -p ~/.fonts
+	cp Fonts/* ~.fonts
+	fc-cache -fv
+}
+
+function UpdateRepos() {
+	Run sudo pacman -Syu
+	Run paru -Syu
 }
 
 function HelpMenu() {
@@ -56,6 +68,7 @@ function HelpMenu() {
 	echo "	-v		Verbose Mode"
 	echo "	-s		Install Shell Config"
 	echo "	-a		Install AwesomeWM Config"
+	echo "	-u		Update Repositories"
 }
 
 # Main
@@ -70,15 +83,39 @@ echo "╚══════╝╚═╝╚═╝  ╚═══╝ ╚═══�
 echo "					By Juancho432 -- Version: 1.0"
 echo ""
 
-if [[ "$#" == 0 ]]; then
+while getopts ":vsau" opt; do
+	case $opt in
+		v)
+			VERBOSE=true
+			;;
+		s)
+			INSTALL_SHELL=true
+			;;
+		a)
+			INSTALL_AWESOME=true
+			;;
+		u)
+			UPDATE_REPOS=true
+			;;
+		\?)
+			echo -e "${RED}Opcion Invalida: -$OPTARG${NC}"
+			HelpMenu
+			exit 64
+			;;
+	esac
+done
+
+# Check for install parameters
+if [[ ! $INSTALL_SHELL && ! $INSTALL_AWESOME ]]; then
 	HelpMenu
 	exit 64
 fi
 
-: "sudo pacman -Syu
-paru -Syu
+if [[ "$UPDATE_REPOS" == true ]]; then
+	UpdateRepos
+fi
 
-mkdir -p ~/.fonts
-cp Fonts/* ~.fonts
-fc-cache -fv
-"
+# Install fonts if required
+if [[ "$INSTALL_AWESOME" == true || "$INSTALL_SHELL" == true ]]; then
+	FontsInstall
+fi
