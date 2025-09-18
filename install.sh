@@ -3,6 +3,7 @@
 
 # Static Code
 
+set -euo pipefall
 NC='\033[0m'
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -12,9 +13,10 @@ PURPLE='\033[0;35m'
 CYAN='\033[0;36m'
 VERBOSE=false
 
+
 # Verbosing
 function Run() {
-	if [ $VERBOSE ]; then
+	if [[ "$VERBOSE" == true ]]; then
 		"$@"
 	else
 		if [[ "$1" == "sudo" ]]; then
@@ -68,7 +70,7 @@ echo "╚══════╝╚═╝╚═╝  ╚═══╝ ╚═══�
 echo "					By Juancho432 -- Version: 1.0"
 echo ""
 
-if [ "$#" == 0 ]; then
+if [[ "$#" == 0 ]]; then
 	HelpMenu
 	exit 64
 fi
