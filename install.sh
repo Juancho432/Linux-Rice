@@ -54,7 +54,7 @@ function AwesomeInstall() {
 
 function FontsInstall() {
 	mkdir -p ~/.fonts
-	cp Fonts/* ~.fonts
+	cp Fonts/* ~/.fonts
 	fc-cache -fv
 }
 
@@ -69,6 +69,7 @@ function HelpMenu() {
 	echo "	-s		Install Shell Config"
 	echo "	-a		Install AwesomeWM Config"
 	echo "	-u		Update Repositories"
+	echo ""
 }
 
 # Main
