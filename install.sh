@@ -106,7 +106,7 @@ while getopts ":vsau" opt; do
 done
 
 # Check for install parameters
-if [[ ! $INSTALL_SHELL && ! $INSTALL_AWESOME ]]; then
+if [[ ! "$INSTALL_SHELL" == true && ! "$INSTALL_AWESOME" == true ]]; then
 	HelpMenu
 	exit 64
 fi
