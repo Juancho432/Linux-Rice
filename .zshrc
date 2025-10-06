@@ -74,8 +74,6 @@ plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
-source /usr/share/doc/pkgfile/command-not-found.zsh
-
 source /usr/share/zsh-antidote/antidote.zsh
 antidote load
 

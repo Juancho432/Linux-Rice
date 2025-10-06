@@ -54,9 +54,9 @@ function AwesomeInstall() {
 
 function FontsInstall() {
 	Run sudo pacman -S fontconfig
-	mkdir -p ~/.fonts
-	cp Fonts/* ~/.fonts
-	fc-cache -fv
+	Run mkdir -p ~/.fonts
+	Run cp Fonts/* ~/.fonts
+	Run fc-cache -fv
 }
 
 function UpdateRepos() {
