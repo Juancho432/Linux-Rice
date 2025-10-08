@@ -48,8 +48,9 @@ function ShellInstall() {
 }
 
 function AwesomeInstall() {
-	Run sudo pacman -S awesome xorg xorg-xinit xorg-server
-	Run echo "exec awesome" >>~/.xinitrc
+	Run sudo pacman -S awesome xorg xorg-xinit xorg-server luarocks
+	Run echo "exec awesome" >> ~/.xinitrc
+	Run cp -r ./awesome/ ~/.config/
 }
 
 function FontsInstall() {
